@@ -17,4 +17,6 @@ while True:
     elif imc > 18.5:
         print(f"Seu IMC é: {imc:.2f} = Peso normal")
     else:
-        print(f"Seu IMC é: {imc:.2f} = Baixo peso") 
+        print(f"Seu IMC é: {imc:.2f} = Baixo peso")
+
+    print("Teste")
