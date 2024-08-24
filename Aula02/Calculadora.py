@@ -1,27 +1,23 @@
-print(" ________________________________________")
-print("|CyberCalc - Sistema de operações simples|")
-print("|Desenvolvido por: Victor santarossa     |")
-print("|Criado em 24/08/2024                    |")
-print("|Versão 1.0                              |")
-print("|________________________________________|")
-
-def entrada1():
-    while True:  
-        entrada = input("\nDigite o primeiro valor: ")
-        try:
-            num = float(entrada)
-            return num
-        except ValueError:
-            print("Erro: valor inválido. Por favor, digite um número válido.")
-
-def entrada2():
+def entrada_valida(mensagem):
     while True:
-        entrada = input("\nDigite o segundo valor: ")
+        entrada = input(mensagem)
         try:
-            num = float(entrada)
-            return num
+            return float(entrada)
         except ValueError:
             print("Erro: valor inválido. Por favor, digite um número válido.")
+
+def obter_operacao_valida():
+    while True:
+        operacao = input("\n ____________"
+                         "\n|Digite 1 = +|"
+                         "\n|Digite 2 = -|"
+                         "\n|Digite 3 = /|"
+                         "\n|Digite 4 = *|"
+                         "\n|____________|"
+                         "\n\nSelecione qual o cálculo que deseja: ")
+        if operacao in ["1", "2", "3", "4"]:
+            return operacao
+        print("Operação inválida. Por favor, digite um número entre 1 e 4.")
 
 def calcular(num1, num2, operacao):
     if operacao == "1":
@@ -30,21 +26,29 @@ def calcular(num1, num2, operacao):
         return num1 - num2
     elif operacao == "3":
         if num2 == 0:
-            return "Erro: divisão por zero."
+            return "\nErro: divisão por zero."
         return num1 / num2
     elif operacao == "4":
         return num1 * num2
     else:
         return "Operação inválida."
 
-num1 = entrada1()
-num2 = entrada2()
+print(" ________________________________________")
+print("|CyberCalc - Sistema de operações simples|")
+print("|Desenvolvido por: Victor Santarossa     |")
+print("|Criado em 24/08/2024                    |")
+print("|Versão 1.0                              |")
+print("|________________________________________|")
 
-calculo = input("\nDigite 1 = +"
-                "\nDigite 2 = -"
-                "\nDigite 3 = /"
-                "\nDigite 4 = *"
-                "\n\nSelecione qual o cálculo que deseja: ")
+realizar = input("\nDigite [1] para CONTINUAR ou [2] para SAIR: ")
 
-resultado = calcular(num1, num2, calculo)
-print(f"\nO cálculo entre {num1} e {num2} é: {resultado}")
+while realizar == "1":
+    num1 = entrada_valida("\nDigite o primeiro valor: ")
+    num2 = entrada_valida("\nDigite o segundo valor: ")
+
+    operacao = obter_operacao_valida()
+
+    resultado = calcular(num1, num2, operacao)
+    print(f"\nO cálculo entre {num1} e {num2} é: {resultado}")
+
+    realizar = input("\nDigite [1] para CONTINUAR ou [2] para SAIR: ")
