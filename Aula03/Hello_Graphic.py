@@ -5,6 +5,7 @@ janela = tk.Tk()
 janela.geometry("400x300")
 janela.title("Aula03_Python")
 
-labelNome = tk.Label()
+labelNome = tk.Label(janela,text = "Digite seu nome:")
+labelNome.pack(padx = 10, pady = 20)
 
 janela.mainloop()
