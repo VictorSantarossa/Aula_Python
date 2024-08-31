@@ -7,6 +7,7 @@ def click():
 janela = tk.Tk()
 janela.geometry("800x600")
 janela.title("Cadastro Cliente")
+janela.config(bg="black")
 
 labelNome = tk.Label(janela,text = "Digite seu nome:", font=("Arial", 16, "bold"), fg="gray", bg="black")
 labelNome.pack(ipadx = 10, pady = (20,2))
@@ -23,7 +24,7 @@ labelTelefone.pack(ipadx = 10, pady = (40,2))
 entryTelefone = tk.Entry(janela)
 entryTelefone.pack(ipadx= 100, pady= 5)
 
-button_First = tk.Button(janela, text="Gravar", command = click, font=("Arial", 16, "bold"), fg="black")
+button_First = tk.Button(janela, text="Gravar", command = click, font=("Arial", 14, "bold"), fg="black", bg="grey")
 button_First.pack(ipadx= 50, pady= 20)
 
 janela.mainloop()
