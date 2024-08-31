@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 def click():
-    messagebox.showinfo("Hello World",f"Bom dia, {entryNome.get()}")
+    messagebox.showinfo("Boas Vindas",f"Bom dia, {entryNome.get()}")
 
 janela = tk.Tk()
 janela.geometry("400x300")
@@ -17,7 +17,5 @@ entryNome.pack(ipadx= 40, pady= 5)
 
 button_First = tk.Button(janela, text="Clique Aqui", command = click)
 button_First.pack(ipadx= 50, pady= 5)
-
-
 
 janela.mainloop()
