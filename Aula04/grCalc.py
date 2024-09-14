@@ -58,31 +58,31 @@ def Dividir():
 
 windows = tk.Tk()
 windows.title("CalculoDoDia")
-windows.geometry("800x600")
+windows.geometry("600x320")
 windows.config(bg="black")
 
 labelNum1 = tk.Label(windows, text="Digite o primeiro número: ",width=20, font=("Arial", 16, "bold"), fg="gray", bg="black")
-labelNum1.pack(padx=10,pady=5)
+labelNum1.grid(column=0,row=0,pady=5)
 
-entryNum1 = tk.Entry(windows,width=58)
-entryNum1.pack(padx=10,pady=5)
+entryNum1 = tk.Entry(windows,width=40)
+entryNum1.grid(column=1,row=0)
 
 labelNum2 = tk.Label(windows, text="Digite o segundo número: ",width=20, font=("Arial", 16, "bold"), fg="gray", bg="black")
-labelNum2.pack(padx=10,pady=5)
+labelNum2.grid(column=0,row=1,pady=5)
 
-entryNum2 = tk.Entry(windows,width=58)
-entryNum2.pack(padx=10,pady=5)
+entryNum2 = tk.Entry(windows,width=40)
+entryNum2.grid(column=1,row=1)
 
 button_Acao = tk.Button(windows, text="Somar", command = Somar,width=20, font=("Arial", 14, "bold"), fg="black", bg="grey")
-button_Acao.pack(ipadx= 50, pady= 20)
+button_Acao.grid(column=0,row=3,padx=25,pady=(20,5))
 
 button_Acao = tk.Button(windows, text="Subtrair", command = Subtrair,width=20, font=("Arial", 14, "bold"), fg="black", bg="grey")
-button_Acao.pack(ipadx= 50, pady= 20)
+button_Acao.grid(column=0,row=4,padx=25,pady=(10,5))
 
 button_Acao = tk.Button(windows, text="Multiplicar", command = Multiplicar,width=20, font=("Arial", 14, "bold"), fg="black", bg="grey")
-button_Acao.pack(ipadx= 50, pady= 20)
+button_Acao.grid(column=1,row=3,padx=25,pady=(20,5))
 
 button_Acao = tk.Button(windows, text="Dividir", command = Dividir,width=20, font=("Arial", 14, "bold"), fg="black", bg="grey")
-button_Acao.pack(ipadx= 50, pady= 20)
+button_Acao.grid(column=1,row=4,padx=25,pady=(10,5))
 
 windows.mainloop()
