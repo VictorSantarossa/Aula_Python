@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
+def atualizar_lista(nome):
+    ...
+
 #interface grafica com tkinter
 janelaPrincipal = tk.Tk()
 janelaPrincipal.title("CRUD de Funcionarios")
