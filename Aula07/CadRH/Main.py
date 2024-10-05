@@ -2,6 +2,22 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
+#Conexão com o banco de dados SQLite
+conexao = sqlite3.connect('funcionarios.db')
+cursor = conexao.cursor()
+
+#Cria a tabela se ela não existir
+cursor.execute('''CREATE TABLE IF NOT EXISTS funcionarios (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    nome TEXT,
+                    idade INTEGER,
+                    cargo TEXT,
+                    departamento TEXT,
+                    salario REAL,
+                    telefone TEXT,
+                    email TEXT)''')
+conexao.commit()
+
 def atualizar_lista(nome):
     ...
 
@@ -27,7 +43,7 @@ btn_deletar = tk.Button(janelaPrincipal, text="Deletar", command='')
 btn_deletar.grid(row=0, column=4, padx=10, pady=10)
 
 #Grid (Treeview) para exibir a lista de funcionários
-tree = ttk.Treeview(janelaPrincipal, columns=("ID", "Nome", "Idade", "Cargo", "Departamento", "Salario", "Telefone", "Email"))
+tree = ttk.Treeview(janelaPrincipal, columns=("ID", "Nome", "Idade", "Cargo", "Departamento", "Salario", "Telefone", "Email"), show="headings")
 tree.heading("ID", text="ID")
 tree.heading("Nome", text="Nome")
 tree.heading("Idade", text="Idade")
@@ -36,5 +52,6 @@ tree.heading("Departamento", text="Departamento")
 tree.heading("Salario", text="Salario")
 tree.heading("Telefone", text="Telefone")
 tree.heading("Email", text="Email")
+tree.grid(row=1, column=0, columnspan=5, padx=10, pady=10)
 
 janelaPrincipal.mainloop()
