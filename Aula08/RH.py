@@ -25,10 +25,30 @@ def atualizar_lista(nome):
 
 # Campos de entrada 
 def adicionar_funcionario():
+
+    def Cancelar():
+        janelaAdicionar.destroy()
+
+    def Gravar():
+        try:
+            cursor.execute('INSERT INTO funcionarios (nome, idade, cargo, departamento, salario, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                       (entryNome.get(),
+                        entryIdade.get(),
+                        entryCargo.get(),
+                        entryDepartamento.get(),
+                        entrySalario.get(),
+                        entryTelefone.get(),
+                        entryEmail.get()))
+        
+            conexao.commit()
+            messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
+            janelaAdicionar.destroy()
+        except Exception as e:
+            messagebox.showerror("Erro", f"Ocorreu um erro: {e}")
+        
     janelaAdicionar = tk.Toplevel(janelaPrincipal)
     janelaAdicionar.title('Adicionar Funcionário')
 
-     # Campos de entrada
     labelNome = tk.Label(janelaAdicionar, text="Nome: ")
     labelNome.grid(row=0, column=0, padx=5, pady=5, sticky='w')
     entryNome = tk.Entry(janelaAdicionar, width=50)
@@ -63,6 +83,13 @@ def adicionar_funcionario():
     labelEmail.grid(row=6, column=0, padx=5, pady=5, sticky='w')
     entryEmail = tk.Entry(janelaAdicionar, width=50)
     entryEmail.grid(row=6, column=1, padx=10, pady=5, sticky='w')
+
+    buttonGravar = tk.Button(janelaAdicionar, text="Gravar", command=Gravar)
+    buttonGravar.grid(row=7, column=0, columnspan=2, padx=(10, 50), pady=5)
+
+    buttonCancelar = tk.Button(janelaAdicionar, text="Cancelar", command=Cancelar)
+    buttonCancelar.grid(row=7, column=1, columnspan=2, padx=(50, 10), pady=5)
+
 
 # Interface gráfica com Tkinter
 janelaPrincipal = tk.Tk()
