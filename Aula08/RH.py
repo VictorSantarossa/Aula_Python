@@ -23,20 +23,59 @@ conexao.commit()
 def atualizar_lista(nome):
     ...
 
+# Campos de entrada 
+def adicionar_funcionario():
+    janelaAdicionar = tk.Toplevel(janelaPrincipal)
+    janelaAdicionar.title('Adicionar Funcionário')
+
+    labelNome = tk.Label(janelaAdicionar, text="Nome: ")
+    labelNome.grid(row=0,column=0,padx=5,pady=5)
+    entryNome = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryNome.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+
+    labelIdade = tk.Label(janelaAdicionar, text="Idade: ")
+    labelIdade.grid(row=1,column=0,padx=5,pady=5)
+    entryIdade = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryIdade.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+
+    labelCargo = tk.Label(janelaAdicionar, text="Cargo: ")
+    labelCargo.grid(row=2,column=0,padx=5,pady=5)
+    entryCargo = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryCargo.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+
+    labelDepartamento = tk.Label(janelaAdicionar, text="Departamento: ")
+    labelDepartamento.grid(row=3,column=0,padx=5,pady=5)
+    entryDepartamento = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryDepartamento.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+
+    labelSalario = tk.Label(janelaAdicionar, text="Salário: ")
+    labelSalario.grid(row=4,column=0,padx=5,pady=5)
+    entrySalario = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entrySalario.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+
+    labelTelefone = tk.Label(janelaAdicionar, text="Telefone: ")
+    labelTelefone.grid(row=5,column=0,padx=5,pady=5)
+    entryTelefone = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryTelefone.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+
+    labelEmail = tk.Label(janelaAdicionar, text="Email: ")
+    labelEmail.grid(row=6,column=0,padx=5,pady=5)
+    entryEmail = tk.Entry(janelaAdicionar,width=50, justify="left")
+    entryEmail.grid(row=6, column=1, padx=10, pady=5, sticky='w')
 
 # Interface gráfica com Tkinter
 janelaPrincipal = tk.Tk()
 janelaPrincipal.title("CRUD de Funcionários")
 
 # Campo de pesquisa
-tk.Label(janelaPrincipal, text="Pesquisar por Nome:").grid(row=0, column=0, 
-                                                           padx=10, pady=10)
+tk.Label(janelaPrincipal, text="Pesquisar por Nome:").grid(row=0, column=0, padx=10, pady=10)
+
 entry_pesquisa = tk.Entry(janelaPrincipal)
 entry_pesquisa.grid(row=0, column=1, padx=10, pady=10)
 entry_pesquisa.bind("<KeyRelease>", lambda event: atualizar_lista(entry_pesquisa.get()))
 
 # Botões
-btn_adicionar = tk.Button(janelaPrincipal, text="Adicionar", command='')
+btn_adicionar = tk.Button(janelaPrincipal, text="Adicionar", command=adicionar_funcionario)
 btn_adicionar.grid(row=0, column=2, padx=10, pady=10)
 
 btn_alterar = tk.Button(janelaPrincipal, text="Alterar", command='')
