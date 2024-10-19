@@ -28,39 +28,40 @@ def adicionar_funcionario():
     janelaAdicionar = tk.Toplevel(janelaPrincipal)
     janelaAdicionar.title('Adicionar Funcionário')
 
+     # Campos de entrada
     labelNome = tk.Label(janelaAdicionar, text="Nome: ")
-    labelNome.grid(row=0,column=0,padx=5,pady=5)
-    entryNome = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelNome.grid(row=0, column=0, padx=5, pady=5, sticky='w')
+    entryNome = tk.Entry(janelaAdicionar, width=50)
     entryNome.grid(row=0, column=1, padx=10, pady=5, sticky='w')
 
     labelIdade = tk.Label(janelaAdicionar, text="Idade: ")
-    labelIdade.grid(row=1,column=0,padx=5,pady=5)
-    entryIdade = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelIdade.grid(row=1, column=0, padx=5, pady=5, sticky='w')
+    entryIdade = tk.Entry(janelaAdicionar, width=50)
     entryIdade.grid(row=1, column=1, padx=10, pady=5, sticky='w')
 
     labelCargo = tk.Label(janelaAdicionar, text="Cargo: ")
-    labelCargo.grid(row=2,column=0,padx=5,pady=5)
-    entryCargo = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelCargo.grid(row=2, column=0, padx=5, pady=5, sticky='w')
+    entryCargo = tk.Entry(janelaAdicionar, width=50)
     entryCargo.grid(row=2, column=1, padx=10, pady=5, sticky='w')
 
     labelDepartamento = tk.Label(janelaAdicionar, text="Departamento: ")
-    labelDepartamento.grid(row=3,column=0,padx=5,pady=5)
-    entryDepartamento = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelDepartamento.grid(row=3, column=0, padx=5, pady=5, sticky='w')
+    entryDepartamento = tk.Entry(janelaAdicionar, width=50)
     entryDepartamento.grid(row=3, column=1, padx=10, pady=5, sticky='w')
 
     labelSalario = tk.Label(janelaAdicionar, text="Salário: ")
-    labelSalario.grid(row=4,column=0,padx=5,pady=5)
-    entrySalario = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelSalario.grid(row=4, column=0, padx=5, pady=5, sticky='w')
+    entrySalario = tk.Entry(janelaAdicionar, width=50)
     entrySalario.grid(row=4, column=1, padx=10, pady=5, sticky='w')
 
     labelTelefone = tk.Label(janelaAdicionar, text="Telefone: ")
-    labelTelefone.grid(row=5,column=0,padx=5,pady=5)
-    entryTelefone = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelTelefone.grid(row=5, column=0, padx=5, pady=5, sticky='w')
+    entryTelefone = tk.Entry(janelaAdicionar, width=50)
     entryTelefone.grid(row=5, column=1, padx=10, pady=5, sticky='w')
 
     labelEmail = tk.Label(janelaAdicionar, text="Email: ")
-    labelEmail.grid(row=6,column=0,padx=5,pady=5)
-    entryEmail = tk.Entry(janelaAdicionar,width=50, justify="left")
+    labelEmail.grid(row=6, column=0, padx=5, pady=5, sticky='w')
+    entryEmail = tk.Entry(janelaAdicionar, width=50)
     entryEmail.grid(row=6, column=1, padx=10, pady=5, sticky='w')
 
 # Interface gráfica com Tkinter
