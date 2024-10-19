@@ -58,8 +58,4 @@ tree.heading("Email", text="Email")
 tree.grid(row=1, column=0, columnspan=5, padx=10, pady=10)
 
 
-
-
-
-
 janelaPrincipal.mainloop()
