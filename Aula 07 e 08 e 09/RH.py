@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import sqlite3
 
-
 # Conexão com o banco de dados SQLite
 conexao = sqlite3.connect('funcionarios.db')
 cursor = conexao.cursor()
@@ -19,103 +18,178 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS funcionarios (
                     email TEXT)''')
 conexao.commit()
 
+# Função para buscar funcionários no banco de dados
+def buscar_funcionarios(nome=""):
+    cursor.execute("SELECT * FROM funcionarios WHERE nome LIKE ?", ('%' + nome + '%',))
+    return cursor.fetchall()
 
-def atualizar_lista(nome):
-    ...
+# Função para atualizar o grid com a lista de funcionários
+def atualizar_lista(nome=""):
+    for row in tree.get_children():
+        tree.delete(row)
+    funcionarios = buscar_funcionarios(nome)
+    for funcionario in funcionarios:
+        tree.insert("", "end", values=funcionario)
 
-# Campos de entrada 
+# Função para adicionar um funcionário ao banco de dados
 def adicionar_funcionario():
+    def salvar_funcionario():
+        nome = entry_nome.get()
+        idade = entry_idade.get()
+        cargo = entry_cargo.get()
+        departamento = entry_departamento.get()
+        salario = entry_salario.get()
+        telefone = entry_telefone.get()
+        email = entry_email.get()
 
-    def Cancelar():
-        janelaAdicionar.destroy()
-
-    def Gravar():
-        try:
-            cursor.execute('INSERT INTO funcionarios (nome, idade, cargo, departamento, salario, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                       (entryNome.get(),
-                        entryIdade.get(),
-                        entryCargo.get(),
-                        entryDepartamento.get(),
-                        entrySalario.get(),
-                        entryTelefone.get(),
-                        entryEmail.get()))
-        
+        if nome and idade and cargo and departamento and salario and telefone and email:
+            cursor.execute("INSERT INTO funcionarios (nome, idade, cargo, departamento, salario, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                           (nome, idade, cargo, departamento, salario, telefone, email))
             conexao.commit()
-            messagebox.showinfo("Sucesso", "Funcionário adicionado com sucesso!")
-            janelaAdicionar.destroy()
-        except Exception as e:
-            messagebox.showerror("Erro", f"Ocorreu um erro: {e}")
-        
-    janelaAdicionar = tk.Toplevel(janelaPrincipal)
-    janelaAdicionar.title('Adicionar Funcionário')
+            atualizar_lista()
+            janela_add.destroy()
+        else:
+            messagebox.showerror("Erro", "Todos os campos devem ser preenchidos.")
 
-    labelNome = tk.Label(janelaAdicionar, text="Nome: ")
-    labelNome.grid(row=0, column=0, padx=5, pady=5, sticky='w')
-    entryNome = tk.Entry(janelaAdicionar, width=50)
-    entryNome.grid(row=0, column=1, padx=10, pady=5, sticky='w')
+    # Janela para adicionar funcionário
+    janela_add = tk.Toplevel(root)
+    janela_add.title("Adicionar Funcionário")
+    
+    # Campos de entrada
+    tk.Label(janela_add, text="Nome").grid(row=0, column=0)
+    entry_nome = tk.Entry(janela_add)
+    entry_nome.grid(row=0, column=1)
 
-    labelIdade = tk.Label(janelaAdicionar, text="Idade: ")
-    labelIdade.grid(row=1, column=0, padx=5, pady=5, sticky='w')
-    entryIdade = tk.Entry(janelaAdicionar, width=50)
-    entryIdade.grid(row=1, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Idade").grid(row=1, column=0)
+    entry_idade = tk.Entry(janela_add)
+    entry_idade.grid(row=1, column=1)
 
-    labelCargo = tk.Label(janelaAdicionar, text="Cargo: ")
-    labelCargo.grid(row=2, column=0, padx=5, pady=5, sticky='w')
-    entryCargo = tk.Entry(janelaAdicionar, width=50)
-    entryCargo.grid(row=2, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Cargo").grid(row=2, column=0)
+    entry_cargo = tk.Entry(janela_add)
+    entry_cargo.grid(row=2, column=1)
 
-    labelDepartamento = tk.Label(janelaAdicionar, text="Departamento: ")
-    labelDepartamento.grid(row=3, column=0, padx=5, pady=5, sticky='w')
-    entryDepartamento = tk.Entry(janelaAdicionar, width=50)
-    entryDepartamento.grid(row=3, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Departamento").grid(row=3, column=0)
+    entry_departamento = tk.Entry(janela_add)
+    entry_departamento.grid(row=3, column=1)
 
-    labelSalario = tk.Label(janelaAdicionar, text="Salário: ")
-    labelSalario.grid(row=4, column=0, padx=5, pady=5, sticky='w')
-    entrySalario = tk.Entry(janelaAdicionar, width=50)
-    entrySalario.grid(row=4, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Salário").grid(row=4, column=0)
+    entry_salario = tk.Entry(janela_add)
+    entry_salario.grid(row=4, column=1)
 
-    labelTelefone = tk.Label(janelaAdicionar, text="Telefone: ")
-    labelTelefone.grid(row=5, column=0, padx=5, pady=5, sticky='w')
-    entryTelefone = tk.Entry(janelaAdicionar, width=50)
-    entryTelefone.grid(row=5, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Telefone").grid(row=5, column=0)
+    entry_telefone = tk.Entry(janela_add)
+    entry_telefone.grid(row=5, column=1)
 
-    labelEmail = tk.Label(janelaAdicionar, text="Email: ")
-    labelEmail.grid(row=6, column=0, padx=5, pady=5, sticky='w')
-    entryEmail = tk.Entry(janelaAdicionar, width=50)
-    entryEmail.grid(row=6, column=1, padx=10, pady=5, sticky='w')
+    tk.Label(janela_add, text="Email").grid(row=6, column=0)
+    entry_email = tk.Entry(janela_add)
+    entry_email.grid(row=6, column=1)
 
-    buttonGravar = tk.Button(janelaAdicionar, text="Gravar", command=Gravar)
-    buttonGravar.grid(row=7, column=0, columnspan=2, padx=(10, 50), pady=5)
+    # Botão para salvar o funcionário
+    btn_salvar = tk.Button(janela_add, text="Salvar", command=salvar_funcionario)
+    btn_salvar.grid(row=7, columnspan=2)
 
-    buttonCancelar = tk.Button(janelaAdicionar, text="Cancelar", command=Cancelar)
-    buttonCancelar.grid(row=7, column=1, columnspan=2, padx=(50, 10), pady=5)
+# Função para deletar um funcionário do banco de dados
+def deletar_funcionario():
+    item_selecionado = tree.selection()
+    if item_selecionado:
+        funcionario = tree.item(item_selecionado)['values']
+        cursor.execute("DELETE FROM funcionarios WHERE id=?", (funcionario[0],))
+        conexao.commit()
+        atualizar_lista()
+    else:
+        messagebox.showerror("Erro", "Selecione um funcionário para deletar.")
 
+# Função para alterar um funcionário
+def alterar_funcionario():
+    item_selecionado = tree.selection()
+    if item_selecionado:
+        funcionario = tree.item(item_selecionado)['values']
+
+        def salvar_alteracao():
+            nome = entry_nome.get()
+            idade = entry_idade.get()
+            cargo = entry_cargo.get()
+            departamento = entry_departamento.get()
+            salario = entry_salario.get()
+            telefone = entry_telefone.get()
+            email = entry_email.get()
+
+            cursor.execute("UPDATE funcionarios SET nome=?, idade=?, cargo=?, departamento=?, salario=?, telefone=?, email=? WHERE id=?", 
+                           (nome, idade, cargo, departamento, salario, telefone, email, funcionario[0]))
+            conexao.commit()
+            atualizar_lista()
+            janela_editar.destroy()
+
+        # Janela para editar funcionário
+        janela_editar = tk.Toplevel(root)
+        janela_editar.title("Alterar Funcionário")
+
+        # Campos de entrada
+        tk.Label(janela_editar, text="Nome").grid(row=0, column=0)
+        entry_nome = tk.Entry(janela_editar)
+        entry_nome.insert(0, funcionario[1])
+        entry_nome.grid(row=0, column=1)
+
+        tk.Label(janela_editar, text="Idade").grid(row=1, column=0)
+        entry_idade = tk.Entry(janela_editar)
+        entry_idade.insert(0, funcionario[2])
+        entry_idade.grid(row=1, column=1)
+
+        tk.Label(janela_editar, text="Cargo").grid(row=2, column=0)
+        entry_cargo = tk.Entry(janela_editar)
+        entry_cargo.insert(0, funcionario[3])
+        entry_cargo.grid(row=2, column=1)
+
+        tk.Label(janela_editar, text="Departamento").grid(row=3, column=0)
+        entry_departamento = tk.Entry(janela_editar)
+        entry_departamento.insert(0, funcionario[4])
+        entry_departamento.grid(row=3, column=1)
+
+        tk.Label(janela_editar, text="Salário").grid(row=4, column=0)
+        entry_salario = tk.Entry(janela_editar)
+        entry_salario.insert(0, funcionario[5])
+        entry_salario.grid(row=4, column=1)
+
+        tk.Label(janela_editar, text="Telefone").grid(row=5, column=0)
+        entry_telefone = tk.Entry(janela_editar)
+        entry_telefone.insert(0, funcionario[6])
+        entry_telefone.grid(row=5, column=1)
+
+        tk.Label(janela_editar, text="Email").grid(row=6, column=0)
+        entry_email = tk.Entry(janela_editar)
+        entry_email.insert(0, funcionario[7])
+        entry_email.grid(row=6, column=1)
+
+        # Botão para salvar alterações
+        btn_salvar = tk.Button(janela_editar, text="Salvar", command=salvar_alteracao)
+        btn_salvar.grid(row=7, columnspan=2)
+    else:
+        messagebox.showerror("Erro", "Selecione um funcionário para alterar.")
 
 # Interface gráfica com Tkinter
-janelaPrincipal = tk.Tk()
-janelaPrincipal.title("CRUD de Funcionários")
+root = tk.Tk()
+root.title("CRUD de Funcionários")
 
 # Campo de pesquisa
-tk.Label(janelaPrincipal, text="Pesquisar por Nome:").grid(row=0, column=0, padx=10, pady=10)
-
-entry_pesquisa = tk.Entry(janelaPrincipal)
+tk.Label(root, text="Pesquisar por Nome:").grid(row=0, column=0, padx=10, pady=10)
+entry_pesquisa = tk.Entry(root)
 entry_pesquisa.grid(row=0, column=1, padx=10, pady=10)
 entry_pesquisa.bind("<KeyRelease>", lambda event: atualizar_lista(entry_pesquisa.get()))
 
 # Botões
-btn_adicionar = tk.Button(janelaPrincipal, text="Adicionar", command=adicionar_funcionario)
+btn_adicionar = tk.Button(root, text="Adicionar", command=adicionar_funcionario)
 btn_adicionar.grid(row=0, column=2, padx=10, pady=10)
 
-btn_alterar = tk.Button(janelaPrincipal, text="Alterar", command='')
+btn_alterar = tk.Button(root, text="Alterar", command=alterar_funcionario)
 btn_alterar.grid(row=0, column=3, padx=10, pady=10)
 
-btn_deletar = tk.Button(janelaPrincipal, text="Deletar", command='')
+btn_deletar = tk.Button(root, text="Deletar", command=deletar_funcionario)
 btn_deletar.grid(row=0, column=4, padx=10, pady=10)
 
 # Grid (Treeview) para exibir a lista de funcionários
-tree = ttk.Treeview(janelaPrincipal, columns=("ID", "Nome", "Idade", "Cargo", "Departamento", "Salário", "Telefone", "Email"), show="headings")
+tree = ttk.Treeview(root, columns=("ID", "Nome", "Idade", "Cargo", "Departamento", "Salário", "Telefone", "Email"), show="headings")
 tree.heading("ID", text="ID")
-tree.heading("Nome", text="Funcionário")
+tree.heading("Nome", text="Nome")
 tree.heading("Idade", text="Idade")
 tree.heading("Cargo", text="Cargo")
 tree.heading("Departamento", text="Departamento")
@@ -124,5 +198,13 @@ tree.heading("Telefone", text="Telefone")
 tree.heading("Email", text="Email")
 tree.grid(row=1, column=0, columnspan=5, padx=10, pady=10)
 
+# Atualiza o grid inicialmente
+atualizar_lista()
 
-janelaPrincipal.mainloop()
+# Executa a interface
+root.mainloop()
+
+
+
+# Fechar a conexão com o banco de dados ao encerrar o programa
+conexao.close()
