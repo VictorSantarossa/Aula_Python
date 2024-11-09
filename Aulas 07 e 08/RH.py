@@ -204,7 +204,7 @@ atualizar_lista()
 # Executa a interface
 root.mainloop()
 
-
+print('teste')
 
 # Fechar a conexão com o banco de dados ao encerrar o programa
 conexao.close()
